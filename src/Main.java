@@ -10,15 +10,14 @@ public class Main {
 		// Three generators
 
 		Generator first = new Generator();
+		Generator second = new Generator();
 		
+		first.out.addLast(Math.random());
+		second.out.addLast(Math.random());
 		// first state
-		first.out.next = new LockFreeQueue();
-		first.out.value = Math.random();
-		first.out.ready = true;
 		
 		generators.add(first);
-		//generators.add(new Generator());
-		//generators.add(new Generator());
+		generators.add(second);
 		
 		
 		for (Generator g : generators)
