@@ -19,11 +19,6 @@ public class Prioritizer implements Runnable
 		{
 			for (Generator g : generators)
 			{
-				
-				System.out.println("Generator  in-queue: " + g.in.toString());
-				System.out.println("Generator out-queue: " + g.out.toString());
-				System.out.flush();
-				
 				Double val = g.out.peek();
 				// If not ready, try next generator
 
@@ -36,7 +31,7 @@ public class Prioritizer implements Runnable
 			}
 			
 			
-			System.out.println("Prioritizer: Moving " + values.size() + " elements from out to in-queue.");
+			//System.out.println("Prioritizer: Moving " + values.size() + " elements from out to in-queue.");
 			
 			// Place all states in priority queue back into in-queues
 			int g = 0;

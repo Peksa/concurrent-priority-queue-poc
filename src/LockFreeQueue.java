@@ -31,8 +31,15 @@ public class LockFreeQueue<V>
 	
 	public V pop()
 	{
-		// TODO SLEEP
-		while (!first.ready);
+		while (!first.ready)
+		{
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		V tmp = first.value;
 		first = first.next;
 		return tmp;
@@ -48,6 +55,17 @@ public class LockFreeQueue<V>
 			tmp = tmp.next;
 		}
 		return ret;
+	}
+	
+	public int size()
+	{
+		int count = -1;
+		Entry tmp = first;
+		while (tmp != null) {
+			count++;
+			tmp = tmp.next;
+		}
+		return count;
 	}
 	
 }

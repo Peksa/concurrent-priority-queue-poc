@@ -9,16 +9,31 @@ public class Main {
 		
 		// Three generators
 
-		Generator first = new Generator();
-		Generator second = new Generator();
+		final Generator first = new Generator();
 		
 		first.out.add(Math.random());
-		second.out.add(Math.random());
 		
 		// first state
 		generators.add(first);
-		generators.add(second);
 		
+		
+		Runnable r = new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < 10000; i++) {
+					System.out.println(first.in.size() + "\t" + first.out.size());
+					System.out.flush();
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		
+		new Thread(r).start();
 		
 		for (Generator g : generators)
 			new Thread(g).start();
