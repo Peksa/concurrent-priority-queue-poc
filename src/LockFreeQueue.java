@@ -1,7 +1,7 @@
 public class LockFreeQueue<V>
 {
-	private Entry last;
-	private Entry first;
+	private volatile Entry last;
+	private volatile Entry first;
 	
 	private class Entry
 	{
@@ -16,7 +16,7 @@ public class LockFreeQueue<V>
 		last = first;
 	}
 	
-	public void addLast(V value)
+	public void add(V value)
 	{
 		last.next = new Entry();
 		last.value = value;
@@ -24,12 +24,12 @@ public class LockFreeQueue<V>
 		last = last.next;
 	}
 	
-	public V peekNext()
+	public V peek()
 	{
 		return first.value;
 	}
 	
-	public V popNext()
+	public V pop()
 	{
 		// TODO SLEEP
 		while (!first.ready);

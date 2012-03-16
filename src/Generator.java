@@ -9,25 +9,12 @@ public class Generator implements Runnable {
 	{
 		while (true)
 		{
-			Double val = in.popNext();
-			System.out.println("I got " + val);
+			Double val = in.pop();
+			System.out.println("Generator: I got " + val + " from my in-queue, adding two new random values to my out-queue");
 			
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			out.addLast(Math.random());
-			
+			out.add(Math.random());
+			out.add(Math.random());
+			out.add(Math.random());
 		}
 	}
 }

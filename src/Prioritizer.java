@@ -19,29 +19,31 @@ public class Prioritizer implements Runnable
 		{
 			for (Generator g : generators)
 			{
-				System.out.println("in: " + g.in.toString());
-				System.out.println("out: " + g.out.toString());
+				
+				System.out.println("Generator  in-queue: " + g.in.toString());
+				System.out.println("Generator out-queue: " + g.out.toString());
 				System.out.flush();
 				
-				Double val = g.out.peekNext();
+				Double val = g.out.peek();
 				// If not ready, try next generator
 
 				if (val == null)
 					continue;
 				
-				val = g.out.popNext();
+				val = g.out.pop();
 				
 				values.add(val);
 			}
 			
 			
+			System.out.println("Prioritizer: Moving " + values.size() + " elements from out to in-queue.");
 			
 			// Place all states in priority queue back into in-queues
 			int g = 0;
 			for (Iterator<Double> iter = values.iterator(); iter.hasNext();)
 			{
 				Generator gen = generators.get(g);
-				gen.in.addLast(iter.next());
+				gen.in.add(iter.next());
 				iter.remove();
 				g = (g + 1) % generators.size();
 			}

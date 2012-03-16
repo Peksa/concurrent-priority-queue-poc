@@ -12,12 +12,12 @@ public class Main {
 		Generator first = new Generator();
 		Generator second = new Generator();
 		
-		first.out.addLast(Math.random());
-		second.out.addLast(Math.random());
+		first.out.add(Math.random());
+		second.out.add(Math.random());
 		// first state
 		
 		generators.add(first);
-		generators.add(second);
+		//generators.add(second);
 		
 		
 		for (Generator g : generators)
