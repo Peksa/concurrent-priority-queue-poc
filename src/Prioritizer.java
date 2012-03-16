@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class Prioritizer implements Runnable
@@ -44,11 +43,11 @@ public class Prioritizer implements Runnable
 				// Less than 5*bucket size? add bucket size elements
 				if (g.in.size() < 5*BUCKET_SIZE)
 				{
-					int i = 0;
-					for (Iterator<Double> iter = values.iterator(); iter.hasNext() && i < BUCKET_SIZE; i++)
-					{
-						g.in.add(iter.next());
-						iter.remove();
+					for (int i = 0; i < BUCKET_SIZE; i++) {
+						Double v = values.poll();
+						if (v == null)
+							break;
+						g.in.add(v);
 					}
 				}
 			}
