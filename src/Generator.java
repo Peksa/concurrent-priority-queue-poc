@@ -9,8 +9,7 @@ public class Generator implements Runnable {
 	{
 		while (true)
 		{
-			Double val = in.pop();
-			//System.out.println("Generator: I got " + val + " from my in-queue, adding two new random values to my out-queue");
+			in.pop();
 			
 			/*try {
 				Thread.sleep(5); // Man it's hard generating random numbers.
@@ -18,8 +17,9 @@ public class Generator implements Runnable {
 				// TODO Auto-generated catch block
 			}*/
 			
+			// Branching factor 10
 			for (int i = 0; i < 10; i++)
-				out.add(0.5);
+				out.add(Math.random());
 		}
 	}
 }

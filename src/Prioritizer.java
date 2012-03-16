@@ -7,9 +7,21 @@ public class Prioritizer implements Runnable
 	private ArrayList<Generator> generators;
 	private PriorityQueue<Double> values = new PriorityQueue<Double>();
 	
+	private static final int BUCKET_SIZE = 1000;
+	
 	public Prioritizer(ArrayList<Generator> generators)
 	{
 		this.generators = generators;
+	}
+	
+	public int size()
+	{
+		return values.size();
+	}
+	
+	public Double first()
+	{
+		return values.peek();
 	}
 	
 	@Override
@@ -17,30 +29,28 @@ public class Prioritizer implements Runnable
 	{
 		while (true)
 		{
+			// Get all output!
 			for (Generator g : generators)
 			{
-				Double val = g.out.peek();
-				// If not ready, try next generator
-
-				if (val == null)
-					continue;
-				
-				val = g.out.pop();
-				
-				values.add(val);
+				while (g.out.peek() != null)
+				{
+					values.add(g.out.pop());
+				}
 			}
 			
-			
-			//System.out.println("Prioritizer: Moving " + values.size() + " elements from out to in-queue.");
-			
-			// Place all states in priority queue back into in-queues
-			int g = 0;
-			for (Iterator<Double> iter = values.iterator(); iter.hasNext();)
+			// Does anyone need input?
+			for (Generator g : generators)
 			{
-				Generator gen = generators.get(g);
-				gen.in.add(iter.next());
-				iter.remove();
-				g = (g + 1) % generators.size();
+				// Less than 5*bucket size? add bucket size elements
+				if (g.in.size() < 5*BUCKET_SIZE)
+				{
+					int i = 0;
+					for (Iterator<Double> iter = values.iterator(); iter.hasNext() && i < BUCKET_SIZE; i++)
+					{
+						g.in.add(iter.next());
+						iter.remove();
+					}
+				}
 			}
 		}
 	}
