@@ -2,6 +2,8 @@ public class LockFreeQueue<V>
 {
 	private volatile Entry last;
 	private volatile Entry first;
+	private volatile long added = 0L;
+	private volatile long popped = 0L;
 	
 	private class Entry
 	{
@@ -20,6 +22,7 @@ public class LockFreeQueue<V>
 	{
 		last.next = new Entry();
 		last.value = value;
+		added++;
 		last.ready = true;
 		last = last.next;
 	}
@@ -42,6 +45,7 @@ public class LockFreeQueue<V>
 		}
 		V tmp = first.value;
 		first = first.next;
+		popped++;
 		return tmp;
 	}
 	
@@ -59,13 +63,7 @@ public class LockFreeQueue<V>
 	
 	public int size()
 	{
-		int count = -1;
-		Entry tmp = first;
-		while (tmp != null) {
-			count++;
-			tmp = tmp.next;
-		}
-		return count;
+		return (int) (added-popped);
 	}
 	
 }
