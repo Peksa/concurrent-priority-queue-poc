@@ -5,9 +5,9 @@ public class LockFreeQueue<V>
 	
 	private class Entry
 	{
-		private V value;
-		private boolean ready;
-		private Entry next;
+		private volatile V value;
+		private volatile boolean ready;
+		private volatile Entry next;
 	}
 	
 	public LockFreeQueue()

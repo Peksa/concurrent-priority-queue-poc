@@ -14,7 +14,6 @@ public class Generator implements Runnable {
 			
 			out.add(Math.random());
 			out.add(Math.random());
-			out.add(Math.random());
 		}
 	}
 }

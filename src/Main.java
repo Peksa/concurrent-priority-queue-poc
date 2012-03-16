@@ -14,10 +14,10 @@ public class Main {
 		
 		first.out.add(Math.random());
 		second.out.add(Math.random());
-		// first state
 		
+		// first state
 		generators.add(first);
-		//generators.add(second);
+		generators.add(second);
 		
 		
 		for (Generator g : generators)
